@@ -1,0 +1,49 @@
+<app-bread-crumb
+[items]="currentPath"
+></app-bread-crumb>
+
+<form [formGroup]="customerForm">
+    <div class="card">
+        <div class="card-header">
+            {{ pageTitle }} 
+        </div>
+        <div class="card-body">
+            <div class="row row-custom">
+
+              <div class="col-md-4">
+                  <mat-form-field class="col-md-12">
+                      <input formControlName="name" matInput type="text" placeholder="Nome">
+                  </mat-form-field>
+              </div>
+                
+              <div class="col-md-4">
+                <mat-form-field class="col-md-12">
+                    <input formControlName="email" matInput type="text" placeholder="E-mail">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="col-md-12">
+                    <input formControlName="phone" matInput type="text" placeholder="Telefone">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="col-md-12">
+                    <input formControlName="password" matInput type="text" placeholder="Senha">
+                </mat-form-field>
+              </div>
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="col-md">
+                <input type="button" routerLink="/customer" class="btn bg-light bg-light_color smart__card-footer" style="float: left;" value="Voltar">
+            </div>
+            <div class="col-md">
+                <input type="button" routerLink="/customer" (click)="save(customerForm.value)" class="btn bg-light bg-light_color smart__card-footer" style="float: right;" value="Salvar">
+            </div>
+        </div>
+    </div>
+
+</form>
