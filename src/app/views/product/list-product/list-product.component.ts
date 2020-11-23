@@ -1,8 +1,10 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { AbstractComponent } from '@shared/abstracts/shared.abstract';
 import { Product } from '@views/model/product.model';
 import { ProductActionType } from '@views/state/product-state/product.action';
-import { getAllProducts } from '@views/state/product-state/product.selector';
+import { getAllProducts, getPageData } from '@views/state/product-state/product.selector';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,7 +13,18 @@ import { Observable } from 'rxjs';
   styleUrls: ['./list-product.component.scss']
 })
 export class ListProductComponent extends AbstractComponent {
+  displayedColumns: string[] = ['name', 'price', 'category', 'action'];
+
+  resultsLength = 0;
+  public pageIndex = 0;
+  public pageSize = 5;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  
   public product$: Observable<Product>;
+  public pageData$: Observable<any>;
   public products$: Observable<Product[]>;
   
   constructor(private injector: Injector) {
@@ -19,13 +32,23 @@ export class ListProductComponent extends AbstractComponent {
   }
 
   ngOnInitExtend(): void {
-    this.findAll();
+    this.findAll(5, 0);
   }
 
-  findAll() {
-    this.store.dispatch(ProductActionType.FIND_ALL_PRODUCTS_TYPE())
-    this.products$ = this.store.select(getAllProducts)
-    this.store.select(getAllProducts).subscribe(console.log)
+  pageSizeOptions(event: any) {
+    const { pageIndex, pageSize } = event;
+    this.pageSize = pageSize;
+    this.pageIndex = pageIndex;
+    this.store.dispatch(ProductActionType.FIND_ALL_PRODUCTS_TYPE({ pageSize, pageIndex }));
+  }
+
+  findAll(pageSize?: number, pageIndex?: number,  sort?: string) {
+    pageSize  = pageSize ? pageSize : this.pageSize;
+    pageIndex  = pageIndex ? pageIndex : this.pageIndex;
+
+    this.store.dispatch(ProductActionType.FIND_ALL_PRODUCTS_TYPE({ pageSize, pageIndex, sort }));
+    this.products$ = this.store.select(getAllProducts);
+    this.pageData$ = this.store.select(getPageData);
   }
 
   public edit(product: Product): void {
@@ -33,7 +56,7 @@ export class ListProductComponent extends AbstractComponent {
   }
 
   public delete(product: Product): void {
-    this.store.dispatch(ProductActionType.DELETE_PRODUCT_TYPE({ productId: product.id }))
+    this.store.dispatch(ProductActionType.DELETE_PRODUCT_TYPE({ productId: product.id, pageSize: this.pageSize, pageIndex: this.pageIndex }));
   }
 
 }

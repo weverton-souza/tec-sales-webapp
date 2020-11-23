@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BreadCrumbComponent } from './component/bread-crumb/bread-crumb.component';
 import { UiSwitchModule } from 'ngx-toggle-switch';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    BreadCrumbComponent
+    BreadCrumbComponent,
+    NgxCurrencyModule
   ]
 })
 export class SharedModule { }

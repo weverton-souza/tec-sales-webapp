@@ -29,6 +29,18 @@ const featureReducer = createReducer(
     return { ...state, error, load: { isLoading: false } };
   }),
 
+  on(CustomerActionType.FIND_CUSTOMER_BY_CODE_TYPE, (state) => {
+    return { ...state, load: { isLoading: true } };
+  }),
+
+  on(CustomerActionType.FIND_CUSTOMER_BY_CODE_SUCCESS, (state, { payload }) =>
+    customerAdapter.addOne(payload, { ...state, load: { isLoading: false }, selectId: payload.id })
+  ),
+
+  on(CustomerActionType.FIND_CUSTOMER_BY_CODE_FAILURE, (state, { error }) => {
+    return { ...state, error, load: { isLoading: false } };
+  }),
+
   on(CustomerActionType.FIND_ALL_CUSTOMERS_TYPE, (state) => {
     return { ...state, load: { isLoading: true } };
   }),

@@ -4,7 +4,9 @@ import { categoryAdapter, CategoryState } from './category.state';
 
 export const categoryState = createFeatureSelector<CategoryState>('CATEGORY_STATE');
 
-const { selectAll } = categoryAdapter.getSelectors(categoryState)
+const { selectAll } = categoryAdapter.getSelectors(categoryState);
+
+export const getCategoryPageData = createSelector(categoryState, (state: CategoryState): any => state.pageData);
 
 export const getAllCategories = createSelector(selectAll, allCategories =>  Object.values(allCategories)) 
 

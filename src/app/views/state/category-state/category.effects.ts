@@ -51,8 +51,8 @@ export class CategoryEffects {
   findAll$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoryActionType.FIND_ALL_CATEGORIES_TYPE),
-        switchMap(() =>
-          this.categoryService.findAll().pipe(
+        switchMap(({ pageSize, pageIndex }) =>
+          this.categoryService.findAll(pageSize, pageIndex).pipe(
             map((res: any) =>  CategoryActionType.FIND_ALL_CATEGORIES_SUCCESS({ payload: res }),
             catchError((error) => of(CategoryActionType.FIND_ALL_CATEGORIES_FAILURE({ error })))
           )

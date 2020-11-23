@@ -31,6 +31,8 @@ export class CreateEditCategoryComponent extends AbstractComponent {
       "name": ['', [Validators.required]],
       "status": ['', [Validators.required]]
     });
+
+    this.setPageTitle();
   }
 
   public save(category: Category){
@@ -41,12 +43,12 @@ export class CreateEditCategoryComponent extends AbstractComponent {
 
     if(this.router.url.endsWith('create')) {
 
-      this.pageTitle = 'Novo Categoria';
+      this.pageTitle = 'Nova Categoria';
       this.currentPath = [{ text: 'Category', link:'/category' }, { text: 'Adicionar Categoria' }]
     } else {
 
       this.storage.get(this.route.snapshot.paramMap.get("categoryId")).subscribe((category: Category) => {
-        this.pageTitle = `Category: ${category.name}`;
+        this.pageTitle = `Categoria: ${category.name}`;
 
         this.currentPath = [{ text: 'Category', link: `/category/${category.id}` }, { text: 'Atualizar Categoria' }]
 

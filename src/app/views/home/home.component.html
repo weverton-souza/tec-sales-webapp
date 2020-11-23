@@ -1,0 +1,27 @@
+<app-bread-crumb
+[items]="[{text: 'Home', link:''}]"
+></app-bread-crumb>
+
+<div class="cardList">
+
+    <mat-card matRipple matRippleColor="rgb(151, 241, 245, 0.5)" class="example-card  mat-elevation-z5" routerLink="product">
+        <mat-card-header>
+        <mat-card-title class="mat-card-title">Produtos</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="../../../assets/img/product.jpeg" alt="Photo of a Shiba Inu">
+    </mat-card>
+
+    <mat-card matRipple matRippleColor="rgb(239, 105, 106, 0.6)" class="example-card  mat-elevation-z5" routerLink="category">
+        <mat-card-header>
+        <mat-card-title  class="mat-card-title">Categorias</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="../../../assets/img/category.jpeg" alt="Photo of a Shiba Inu">
+    </mat-card>
+
+    <mat-card matRipple matRippleColor="rgb(249, 137, 112, 0.6)" class="example-card mat-elevation-z5" routerLink="order">
+        <mat-card-header>
+        <mat-card-title  class="mat-card-title">Pedidos</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="../../../assets/img/order.jpeg" alt="Photo of a Shiba Inu">
+    </mat-card>
+</div>

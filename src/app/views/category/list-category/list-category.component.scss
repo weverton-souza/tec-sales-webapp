@@ -1,0 +1,43 @@
+.example-rate-limit-reached {
+    color: #980000;
+    max-width: 360px;
+    text-align: center;
+    padding: 2vw;
+}
+
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+    max-width: 64px;
+}
+
+.mat-column-created {
+    max-width: 124px;
+}
+
+.mat-row:nth-child(even){
+    background-color: rgb(226, 235, 240, 0.45);
+}
+
+th, td {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.active-toggle {
+    color: rgba(54, 182, 64, 0.74);
+}
+
+.inactive-toggle {
+    color: rgb(206, 206, 206);
+}
+
+.mat-icon-custom {
+    font-size: 2vw;
+}
+
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+    padding-left: 5vw;
+}

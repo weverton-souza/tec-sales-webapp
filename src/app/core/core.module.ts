@@ -12,6 +12,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '@environments/environment';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [],
@@ -32,6 +37,7 @@ import { environment } from '@environments/environment';
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     StoreDevtoolsModule.instrument(),
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
-  ]
+  ],
+  providers: [ { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }]
 })
 export class CoreModule { }

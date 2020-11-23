@@ -4,31 +4,61 @@
 
 <div class="row  mb-4">
     <div class="col-md">
-      <h1 class="h2 border-left pl-2">
-        Categoria
-      </h1>
+      <h1 class="h2 border-left pl-2"> Categoria </h1>
     </div>
+    
     <div class="col-md">
-      <a routerLink="create" class="btn btn-success float-right"> + Nova Categoria</a>
+      <button mat-raised-button class="float-right" color="primary" style="margin-left: 10px;" (click)="findAll()">
+        <mat-icon>refresh</mat-icon>
+        Atualizar Lista
+      </button>
+
+      <button mat-raised-button routerLink="create" class="float-right" style="margin-left: 10px; background: rgb(34, 141, 24); color: whitesmoke">
+        <mat-icon>add_circle_outline</mat-icon>
+          Nova Categoria
+      </button>
     </div>
+</div>
+
+<div class="example-container mat-elevation-z5">
+  <div class="example-table-container">
+
+    <table mat-table [dataSource]="(categories$ | async)" class="example-table"
+          matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let row"  style="width: 50vw">{{row.name}}</td>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row"  style="width: 50vw">
+          <mat-icon aria-hidden="false" class="mat-icon-custom" [ngClass]="{ 'btn-outline-success': row.status, 'btn-outline-danger': !row.status }">{{ row.status ? 'toggle_on' : 'toggle_off' }}</mat-icon></td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let row" style="width: 55vw">
+          <a [routerLink]="['update', row.id]" (click)="edit(row)" class="btn btn-outline-info btn-sm mr-2 wd__btn">Editar</a>
+          <button 
+          (click)="delete(row)" 
+          class="btn btn-outline-danger btn-sm wd__btn" 
+          [ngClass]="{ 'btn-outline-danger': row.status, 'btn-outline-success': !row.status  }"> {{ row.status ? 'Desabilitar' : 'Habilitar' }} </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </div>
-  
-<table class="table table-hover">
-  <thead>
-    <tr class="bg-primary text-light">
-      <th>Nome</th>
-      <th>Status</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let category of categories$ | async">
-      <td>{{ category.name }}</td>
-      <td>{{ category.status ? 'Ativa' : 'Inativa' }}</td>
-      <td style="width: 25vw">
-      <a [routerLink]="['update', category.id]" (click)="edit(category)" class="btn btn-outline-info btn-sm mr-2 wd__btn">Editar</a>
-      <button (click)="delete(category)" class="btn btn-outline-danger btn-sm wd__btn">Excluir</button>
-    </td>
-    </tr>
-  </tbody>
-</table>
+
+  <mat-paginator 
+    [pageSize]="(getCategoryPageData$ | async)?.numberOfElements" 
+    [pageIndex]="(getCategoryPageData$ | async)?.pageable.pageNumber"
+    [length]="(getCategoryPageData$ | async)?.totalElements" 
+    [pageSizeOptions]="[5, 10, 15]" 
+    (page)="pageSizeOptions($event)"></mat-paginator>
+</div>

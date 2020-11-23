@@ -8,11 +8,13 @@ export const productAdapter: EntityAdapter<Product> = createEntityAdapter<Produc
 export interface ProductState extends EntityState<Product> {
   load: { isLoading: boolean };
   error: { isTrusted: boolean };
+  pageData: any;
   selectId: string,
 }
 
 export const initialProductState: ProductState = productAdapter.getInitialState({
   load: { isLoading: false },
   error: { isTrusted: false },
+  pageData: null,
   selectId: null,
 });

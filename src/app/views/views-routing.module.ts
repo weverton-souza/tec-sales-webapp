@@ -4,10 +4,17 @@ import { CreateEditCategoryComponent } from './category/create-edit-category/cre
 import { ListCategoryComponent } from './category/list-category/list-category.component';
 import { CreateUpdateCustomerComponent } from './customer/create-update-customer/create-update-customer.component';
 import { ListCustomerComponent } from './customer/list-customer/list-customer.component';
+import { HomeComponent } from './home/home.component';
+import { CreateUpdateOrderComponent } from './order/create-update-order/create-update-order.component';
+import { ListOrderComponent } from './order/list-order/list-order.component';
 import { CreateEditProductComponent } from './product/create-edit-product/create-edit-product.component';
 import { ListProductComponent } from './product/list-product/list-product.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
   {
     path: 'category',
     children: [
@@ -56,6 +63,23 @@ const routes: Routes = [
       {
         path: 'update/:customerId',
         component: CreateUpdateCustomerComponent
+      }
+    ]
+  },
+  {
+    path: 'order',
+    children: [
+      {
+        path: '',
+        component: ListOrderComponent
+      },
+      {
+        path: 'create',
+        component: CreateUpdateOrderComponent
+      },
+      {
+        path: 'update/:orderId',
+        component: CreateUpdateOrderComponent
       }
     ]
   }

@@ -21,6 +21,12 @@ export class CustomerActionType {
   public static FIND_CUSTOMER_BY_ID_FAILURE = createAction('@tecsales/find-customer-by-id-failure', props<{ error: Error | any }>());
   //#endregion FIND_CUSTOMER_BY_ID
 
+  //#region FIND_CUSTOMER_BY_ID
+  public static FIND_CUSTOMER_BY_CODE_TYPE = createAction('@tecsales/find-customer-by-code', props<{ customerCode: string }>());
+  public static FIND_CUSTOMER_BY_CODE_SUCCESS = createAction('@tecsales/find-customer-by-code-success', props<{ payload: Customer }>());
+  public static FIND_CUSTOMER_BY_CODE_FAILURE = createAction('@tecsales/find-customer-by-code-failure', props<{ error: Error | any }>());
+  //#endregion FIND_CUSTOMER_BY_ID
+
   //#region FIND_ALL_CUSTOMERS
   public static FIND_ALL_CUSTOMERS_TYPE = createAction('@tecsales/find-all-customers');
   public static FIND_ALL_CUSTOMERS_SUCCESS = createAction('@tecsales/find-all-customers-success', props<{ payload: any }>());

@@ -1,1 +1,66 @@
-<p>list-order works!</p>
+<app-bread-crumb
+[items]="[{text: 'Order', link:'/order'}]"
+></app-bread-crumb>
+
+<div class="row  mb-4">
+    <div class="col-md">
+      <h1 class="h2 border-left pl-2"> Pedidos </h1>
+    </div>
+    
+    <div class="col-md">
+      <button mat-raised-button class="float-right" color="primary" style="margin-left: 10px;" (click)="findAll()">
+        <mat-icon>refresh</mat-icon>
+        Atualizar Lista
+      </button>
+
+      <button mat-raised-button routerLink="create" class="float-right" style="margin-left: 10px; background: rgb(34, 141, 24); color: whitesmoke">
+        <mat-icon>add_circle_outline</mat-icon>
+          Novo Pedido
+      </button>
+    </div>
+</div>
+
+<div class="example-container mat-elevation-z5">
+  <div class="example-table-container">
+
+    <table mat-table [dataSource]="(orders$ | async)" class="example-table"
+          matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let row"  style="width: 30vw">{{ row.customer.name }}</td>
+      </ng-container>
+
+       <!-- Name Column -->
+       <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Telefone</th>
+        <td mat-cell *matCellDef="let row"  style="width: 30vw">{{ row.customer.phone }}</td>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Data</th>
+        <td mat-cell *matCellDef="let row"  style="width: 30vw">{{ row.date }}</td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let row" style="width: 30vw">
+          <a [routerLink]="['update', row.id]" (click)="edit(row)" class="btn btn-outline-info btn-sm mr-2 wd__btn">Editar</a>
+          <button (click)="delete(row)" class="btn btn-outline-danger btn-sm wd__btn">Excluir</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator 
+    [pageSize]="(getOrderPageData$ | async)?.numberOfElements" 
+    [pageIndex]="(getOrderPageData$ | async)?.pageable.pageNumber"
+    [length]="(getOrderPageData$ | async)?.totalElements" 
+    [pageSizeOptions]="[5, 10, 15]" 
+    (page)="pageSizeOptions($event)"></mat-paginator>
+</div>

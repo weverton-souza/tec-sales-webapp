@@ -48,6 +48,18 @@ export class CustomerEffects {
     )
   );
 
+  findByCode$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CustomerActionType.FIND_CUSTOMER_BY_CODE_TYPE),
+      switchMap(({ customerCode }) =>
+        this.customerService.findByCode(customerCode).pipe(
+          map((customer: Customer) => CustomerActionType.FIND_CUSTOMER_BY_CODE_SUCCESS({ payload: customer })),
+          catchError((error) => of(CustomerActionType.FIND_CUSTOMER_BY_CODE_FAILURE({ error })))
+        )
+      )
+    )
+  );
+
   findAll$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActionType.FIND_ALL_CUSTOMERS_TYPE),

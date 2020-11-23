@@ -4,6 +4,19 @@
 
 @import "~bootstrap/dist/css/bootstrap.css";
 
+input[disabled]{
+    color: #000;     
+}
+
+.button:active, 
+ button:active,
+.button:focus, 
+ button:focus,
+.button:hover, 
+ button:hover{
+    border:none !important;
+    outline:none !important;
+}
 
 .bg-light {
     border-color: #3f729b;

@@ -1,18 +1,18 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Category } from '@views/model/category.model';
+import { Order } from '@views/model/order.model';
 
-export const categoryAdapter: EntityAdapter<Category> = createEntityAdapter<Category>({
+export const orderAdapter: EntityAdapter<Order> = createEntityAdapter<Order>({
   selectId: (payload) => payload.id,
 });
 
-export interface CategoryState extends EntityState<Category> {
+export interface OrderState extends EntityState<Order> {
   load: { isLoading: boolean };
   error: { isTrusted: boolean };
   pageData: any;
   selectId: string,
 }
 
-export const initialCategoryState: CategoryState = categoryAdapter.getInitialState({
+export const initialOrderState: OrderState = orderAdapter.getInitialState({
   load: { isLoading: false },
   error: { isTrusted: false },
   pageData: null,

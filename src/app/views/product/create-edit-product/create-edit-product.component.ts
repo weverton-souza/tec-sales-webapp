@@ -32,7 +32,7 @@ export class CreateEditProductComponent extends AbstractComponent {
       "id": null,
       "name": ['', [Validators.required]],
       "price": ['', [Validators.required]],
-      "category": ['', [Validators.required]]
+      "categories": ['', [Validators.required]]
     });
 
     this.setPageTitle();
@@ -40,7 +40,7 @@ export class CreateEditProductComponent extends AbstractComponent {
   }
 
   public findAllCategories(): void {
-    this.store.dispatch(CategoryActionType.FIND_ALL_CATEGORIES_TYPE())
+    this.store.dispatch(CategoryActionType.FIND_ALL_CATEGORIES_TYPE({ pageSize: 5, pageIndex: 0 }))
     this.categories$ = this.store.select(getAllCategories)
   }
 

@@ -6,6 +6,8 @@ export const customerState = createFeatureSelector<CustomerState>('CUSTOMER_STAT
 
 const { selectAll } = customerAdapter.getSelectors(customerState)
 
+export const getSelectCustomer = createSelector(customerState, (state: CustomerState): any => state.entities[state.selectId])
+
 export const getAllCustomers = createSelector(selectAll, allCustomers =>  Object.values(allCustomers)) 
 
 export const hasError = createSelector(customerState, (state: CustomerState): any => state.error);

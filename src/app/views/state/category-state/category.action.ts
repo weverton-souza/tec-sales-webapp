@@ -1,5 +1,6 @@
 import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
+import { IPageResponse } from '@shared/interfaces';
 import { Category } from '@views/model/category.model';
 
 export class CategoryActionType {
@@ -22,8 +23,8 @@ export class CategoryActionType {
   //#endregion FIND_CATEGORY_BY_ID
 
   //#region FIND_ALL_CATEGORIES
-  public static FIND_ALL_CATEGORIES_TYPE = createAction('@tecsales/find-all-categories');
-  public static FIND_ALL_CATEGORIES_SUCCESS = createAction('@tecsales/find-all-categories-success', props<{ payload: any }>());
+  public static FIND_ALL_CATEGORIES_TYPE = createAction('@tecsales/find-all-categories', props<{ pageSize: number, pageIndex: number }>());
+  public static FIND_ALL_CATEGORIES_SUCCESS = createAction('@tecsales/find-all-categories-success', props<{ payload: IPageResponse<Category> }>());
   public static FIND_ALL_CATEGORIES_FAILURE = createAction('@tecsales/find-all-categories-failure', props<{ error: Error | any }>());
   //#endregion FIND_ALL_CATEGORIES
 

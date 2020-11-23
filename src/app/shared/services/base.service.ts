@@ -26,8 +26,8 @@ export abstract class BaseResourceService<T extends BaseModel> {
     return this.http.get<T>(`${this.requestPath}/${id}`);
   }
 
-  public findAll(): Observable<IPageResponse<T>> {
-    return this.http.get<IPageResponse<T>>(`${this.requestPath}`);
+  public findAll(pageSize?: number, pageIndex?: number, sort?: string): Observable<IPageResponse<T>> {
+    return this.http.get<IPageResponse<T>>(`${this.requestPath}?page=${pageIndex}&size=${pageSize}`);
   }
 
   public delete(id: string): Observable<any> {

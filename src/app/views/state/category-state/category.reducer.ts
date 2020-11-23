@@ -17,6 +17,18 @@ const featureReducer = createReducer(
     return { ...state, error, load: { isLoading: false } };
   }),
 
+  on(CategoryActionType.UPDATE_CATEGORY_TYPE, (state) => {
+    return { ...state, load: { isLoading: true } };
+  }),
+
+  on(CategoryActionType.UPDATE_CATEGORY_SUCCESS, (state, { payload }) =>
+    categoryAdapter.updateOne(payload, { ...state, load: { isLoading: false }, selectId: payload.id })
+  ),
+
+  on(CategoryActionType.UPDATE_CATEGORY_FAILURE, (state, { error }) => {
+    return { ...state, error, load: { isLoading: false } };
+  }),
+
   on(CategoryActionType.FIND_CATEGORY_BY_ID_TYPE, (state) => {
     return { ...state, load: { isLoading: true } };
   }),
@@ -34,7 +46,7 @@ const featureReducer = createReducer(
   }),
 
   on(CategoryActionType.FIND_ALL_CATEGORIES_SUCCESS, (state, { payload }) =>
-    categoryAdapter.setAll(payload, { ...state, load: { isLoading: false } })
+    categoryAdapter.setAll(payload.content, { ...state, pageData: payload, load: { isLoading: false } })
   ),
 
   on(CategoryActionType.FIND_ALL_CATEGORIES_FAILURE, (state, { error }) => {

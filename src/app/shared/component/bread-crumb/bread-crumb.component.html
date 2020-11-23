@@ -2,7 +2,7 @@
 <nav class="mb-5" style="margin-top: 15px">
     <ul class="breadcrumb pd__breadcrumb">
         <li class="breadcrumb-item">
-            <a routerLink="home">Home </a>
+            <a routerLink="/">Home </a>
         </li>
         <li *ngFor="let item of items" class="breadcrumb-item" [class.active]="isTheLastItem(item)">
             <span *ngIf="isTheLastItem(item)">{{item.text}}</span>

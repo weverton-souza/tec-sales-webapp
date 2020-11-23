@@ -1,1 +1,136 @@
-<p>create-update-order works!</p>
+<app-bread-crumb
+[items]="currentPath"
+></app-bread-crumb>
+
+<form [formGroup]="orderForm" (keydown.enter)="$event.preventDefault()">
+    <div class="card">
+        <div class="card-header">
+            {{ pageTitle }} 
+        </div>
+        <div class="card-body">
+            <div class="row row-custom">
+
+            <div class="col-md-4">
+            <mat-form-field class="col-md-12">
+                <input 
+                formControlName="userCode" 
+                maxlength="4" 
+                oninput="this.value = this.value.toUpperCase()" 
+                matInput type="text" 
+                placeholder="Código de usuário" 
+                (input)="findCustomerId(orderForm.value.userCode)">
+            </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field class="col-md-12">
+                <input formControlName="name" matInput type="text" placeholder="Nome">
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field class="col-md-12">
+                <input formControlName="phone" matInput type="text" placeholder="Telefone">
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field class="col-md-12">
+                <input formControlName="email" matInput type="text" placeholder="E-main">
+                </mat-form-field>
+            </div>
+
+                <div class="col-md-4">
+                    <mat-form-field color="primary" class="col-md-12">
+                        <mat-label>Data De Entrega</mat-label>
+                        <input matInput autocomplete="off" formControlName="date" placeholder="DD/MM/AAAA" [matDatepicker]="datepicker">
+                        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker color="primary"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            
+            <div class="row row-custom">
+                <div (keydown.enter)="$event.preventDefault()" class="example-button-container col-md-12" style="margin-top: 15px;">
+                    <button mat-fab class="float-right"
+                            matTooltipPosition="above"
+                            matTooltip="Adicionar produto ao pedido"
+                            style="margin-left: 10px; background: '#4aad70'; color: 'white'" 
+                            aria-label="Example icon button with a home icon"
+                            (keydown.enter)="$event.preventDefault()"
+                            (click)="openDialog()">
+                        <mat-icon>add_shopping_cart</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <mat-divider style="margin-top: 15px"></mat-divider>
+
+            <div class="example-container">
+
+                <div class="example-table-container" *ngIf="(orderItems$ | async)?.length != 0">
+            
+                    <table mat-table [dataSource]="(orderItems$ | async)" class="example-table"  matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+
+                        <ng-container matColumnDef="code">
+                            <th mat-header-cell *matHeaderCellDef>Código</th>
+                            <td mat-cell *matCellDef="let row"  style="width: 10vw">{{ row.code }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>Nome</th>
+                            <td mat-cell *matCellDef="let row"  style="width: 20vw">{{ row.name }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="price">
+                            <th mat-header-cell *matHeaderCellDef>Preço</th>
+                            <td mat-cell *matCellDef="let row"  style="width: 10vw">{{ row.price }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="amount">
+                            <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+                            <td mat-cell *matCellDef="let row"  style="width: 10vw">{{ row.amount }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="discount">
+                            <th mat-header-cell *matHeaderCellDef>Desconto</th>
+                            <td mat-cell *matCellDef="let row"  style="width: 15vw">{{ row.discount }}</td>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="total">
+                            <th mat-header-cell *matHeaderCellDef>Total</th>
+                            <td mat-cell *matCellDef="let row"  style="width: 15vw">{{ row.total }}</td>
+                        </ng-container>
+
+                         <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>Ações</th>
+                            <td mat-cell *matCellDef="let row" style="width: 40vw">
+                            <a class="btn btn-outline-info btn-sm mr-2 wd__btn">Editar</a>
+                            <button (click)="removeProduct(row)" class="btn btn-outline-danger btn-sm wd__btn">Excluir</button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+        
+                </div>
+        
+            </div>
+
+        </div>
+
+        <div class="card-footer">
+            <div class="col-md">
+                <input type="button" routerLink="/order" class="btn bg-light bg-light_color smart__card-footer" style="float: left;" value="Voltar">
+            </div>
+            <div class="col-md">
+                <input type="button" (click)="save(orderForm.value)" class="btn bg-light bg-light_color smart__card-footer" style="float: right;" value="Finalizar Pedido">
+            </div>
+        </div>
+    </div>
+
+   
+</form>

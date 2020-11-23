@@ -33,6 +33,7 @@
     "bootstrap-switch": "^3.4.0",
     "bootstrap4-toggle": "^3.6.1",
     "jquery": "^3.5.1",
+    "ngx-currency": "^2.5.2",
     "ngx-toggle-switch": "^2.0.5",
     "ngx-ui-switch": "^10.0.2",
     "popper.js": "^1.16.1",

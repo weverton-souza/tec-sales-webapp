@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>Produto</h1>
+<div mat-dialog-content>
+
+  <div class="row row-custom">
+
+    <mat-form-field  class="col-md-4">
+      <mat-label>Código do produto</mat-label>
+      <input oninput="this.value = this.value.toUpperCase()" matInput maxlength="4" [(ngModel)]="data.code" (change)="findProductByCode(data.code)">
+    </mat-form-field>
+
+    <mat-form-field  class="col-md-4">
+      <mat-label>Produto</mat-label>
+      <input disabled="true" matInput [(ngModel)]="data.name">
+    </mat-form-field>
+
+    <mat-form-field  class="col-md-4">
+      <mat-label>Price</mat-label>
+      <span matPrefix>R$ &nbsp;</span>
+      <input disabled="true" matInput [(ngModel)]="data.price">
+    </mat-form-field>
+
+  </div>
+
+  <div class="row row-custom">
+    <mat-form-field class="example-chip-list col-md-12">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let category of (getSelectProduct$ | async)?.categories" style="background: rgba(109, 224, 245, .5);">
+          {{category.name}}
+        </mat-chip>
+        <input placeholder="Categorias"
+               [matChipInputFor]="chipList"
+               matChipInputAddOnBlur="true">
+      </mat-chip-list>
+    </mat-form-field>
+
+  </div>
+
+  <div class="row row-custom">
+
+    <mat-form-field  class="col-md-6">
+      <mat-label>Quantidade</mat-label>
+      <input autocomplete="off" matInput [(ngModel)]="data.amount" (ngModelChange)="calculateTotal()">
+    </mat-form-field>
+
+    <mat-form-field  class="col-md-6">
+      <mat-label>Desconto</mat-label>
+      <span matPrefix>R$ &nbsp;</span>
+      <input currencyMask [options]="{ align: 'left', prefix: '', thousands: '.', decimal: ',' }" autocomplete="off" matInput [(ngModel)]="data.discount"  (ngModelChange)="calculateTotal()">
+    </mat-form-field>
+  </div>
+
+  <div class="row row-custom">
+    <mat-form-field  class="col-md-6">
+      <mat-label>Total</mat-label>
+      <span matPrefix>R$ &nbsp;</span>
+      <input disabled="true" matInput [(ngModel)]="data.total">
+    </mat-form-field>
+  </div>
+
+</div>
+
+<div class="row row-custom">
+  <div style="margin-top: 10px; ; width: 100%;" mat-dialog-actions>
+    <div class="col-md-12">
+      <button mat-fab style="margin-left: 10px; background: '#ec6a6a'; color: 'white'" class="float-right" (click)="close()">
+        <mat-icon>clear</mat-icon>
+      </button>
+
+      <button mat-fab style="background: '#4aad70'; color: 'white'" class="float-right" [mat-dialog-close]="data.code" (click)="close()" cdkFocusInitial>
+        <mat-icon>done_all</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
